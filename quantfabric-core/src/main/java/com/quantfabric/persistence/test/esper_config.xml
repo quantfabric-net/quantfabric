@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<esper-configuration>
+		<engine-settings>
+			<defaults>
+				<metrics-reporting enabled="true" engine-interval="1000" statement-interval="1000" threading="true"/>
+			</defaults>
+		</engine-settings>
+		
+		<plugin-view namespace="quantfabric" name="uniquewin"
+			factory-class="com.quantfabric.cep.view.UniqueByPropertyWindowViewFactory" />
+		
+		<event-type-auto-name package-name="com.quantfabric.algo.market.datamodel" />
+		<event-type-auto-name package-name="com.quantfabric.algo.backtesting.player.events"/>
+		
+		<event-type name="MDQuoteTopOfBook">
+			<java-util-map>
+				<map-property name="timestamp" class="long" />
+				<map-property name="messageId" class="long" />
+				<map-property name="snapshotId" class="long" />
+				<map-property name="sourceName" class="string" />
+				<map-property name="sourceTimestamp" class="long" />
+				<map-property name="mdItemId" class="string" />
+				<map-property name="symbol" class="string" />
+				<map-property name="feedId" class="int" />
+				<map-property name="level" class="long" />
+				<map-property name="price" class="double" />
+				<map-property name="size" class="double" />
+				<map-property name="priceCount" class="int" />
+				<map-property name="priceType"
+					class="com.quantfabric.algo.market.datamodel.MDItem$MDItemType" />
+			</java-util-map>
+		</event-type>
+		
+	</esper-configuration>
+	<esperPersistingUpdateListener name="MySqlPersister" type="jdbc">
+		<storageProvider-settings>		
+			<setting name="sqlScriptBuilder-className" value="com.quantfabric.persistence.jdbc.MySqlScriptBuilder"/>
+			<setting name="dbConnectionString" value="jdbc:mysql://localhost:3306/quantfabric_quantfabric_algo_persisting_storage?user=root&amp;password=dbadmin"/>
+		</storageProvider-settings>			
+		<relationSchema-settings>
+			<setting name="storageSystem" value="innodb"/>
+		</relationSchema-settings>
+		<pereodicSweeping-settings enabled="false">
+				<setting name="leaveRecordsCount" value="50000"/>
+				<setting name="period" value="3000000"/>
+				<setting name="archiving" value="false"/>
+		</pereodicSweeping-settings>
+	</esperPersistingUpdateListener>	
+</config>

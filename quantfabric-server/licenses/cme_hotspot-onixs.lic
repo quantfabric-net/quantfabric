@@ -1,0 +1,17 @@
+<license version="1.0">
+  <type>trial</type>
+  <customer>
+    <name>Ortess Inc</name>
+  </customer>
+  <period>
+    <since>2011-10-31</since>
+    <till>2012-01-31</till>
+  </period>
+  <javaProducts>
+    <product id="12" name="Hotspot ITCH Handler for Java" />
+    <product id="50" name="selfConnect FIX Engine for Java" />
+  </javaProducts>
+  <javaCheckSum>l0IiDn9Orx4rvLjZ+15XVujRkireX/RF1BowU3mRZ78yB6KeclYclLfLrNmeJYewXpfaKDNUWcqi
+jB3rzX8PLwvmJ9UPzWul/4ZOzOxbZhLtiUEU1wHxl9Ex5jWZtRHT+O4M8V2VFcibRP8q5yXL784t
+qcRuzfXMX+jLFzctHHk=</javaCheckSum>
+</license>

@@ -1,0 +1,14 @@
+<license version="1.0">
+<type>trial</type>
+<customer>
+<name>OnixS</name>
+</customer>
+<period>
+<since>2011-08-03</since>
+<till>2011-11-01</till>
+</period>
+<javaProducts>
+<product id="50" name="selfConnect FIX Engine for Java" />
+</javaProducts>
+<javaCheckSum>MozK2CA46h2kNs4wP4AbO7iMSal0sSxchkPxPsSewNMrA7TCHNmQBH3W/6zZnFXsvkpi7wxfzS0d3ryHLN6nCBdwZtK0gERymoQsUakBzKW+304jeXLl7FmlO6fEtqfWdsi6EVL05HL/fGd08wOXJ3uxhhQNW/XFL40fCHO/3Dw=</javaCheckSum>
+</license>
