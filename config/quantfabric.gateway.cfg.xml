@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<marketgateway-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.quantfabric.net/schema/quantfabric">
+	
+	<esper-configuration>
+		<engine-settings>
+			<defaults>
+				<metrics-reporting enabled="false"
+					engine-interval="1000" statement-interval="30000" threading="true" />
+				<execution prioritized="false" />
+			</defaults>
+		</engine-settings>
+		
+	</esper-configuration>
+	<default-persister-settings>
+	</default-persister-settings>
+	<instruments>	
+    	 	<!-- Currency Pairs -->
+		<instrument id="1000" base="BTC" local="USDT" pointsInOne="100000" />
+		<instrument id="1"    base="BTC" local="USDT" pointsInOne="100000" />
+		<instrument id="2"    base="BTC" local="USDT" pointsInOne="100000" />
+	</instruments>
+	<marketConnections>
+		<!-- Binance pushing provider-->
+<!--		<marketConnection name="BinanceFeed" mode="basic" autoConnect="true"-->
+<!--						  provider="com.quantfabric.algo.market.connector.binance.BinanceMarketConnection">-->
+
+<!--			<adapter-settings>-->
+<!--				<setting name="subscribeType" value="polling"/>-->
+<!--				<setting name="postfix" value="US"/>-->
+<!--			</adapter-settings>-->
+
+<!--			<credentials>-->
+<!--				<credential name="username" value=""/>-->
+<!--				<credential name="password" value=""/>-->
+<!--				<credential name="apiKey" value=""/>-->
+<!--				<credential name="secretKey" value=""/>-->
+<!--			</credentials>-->
+
+<!--			<feeds>-->
+<!--				<feedGroup id="1">-->
+<!--					<feed type="marketData" name="B_BTCUSD" instrument="1000" marketDepth="FULL_MARKET_DEPTH"-->
+<!--						  save="false"/>-->
+<!--				</feedGroup>-->
+<!--			</feeds>-->
+<!--		</marketConnection>-->
+		<!-- Binance streaming provider-->
+		<marketConnection name="BinanceStreamingFeed" mode="basic" autoConnect="true"
+						  provider="com.quantfabric.algo.market.connector.binance.stream.BinanceStreamingMarketConnection">
+
+			<adapter-settings>
+				<setting name="subscribeType" value="pushing"/>
+				<setting name="postfix" value="COM"/>
+				<setting name="Use_Sandbox" value="true"/>
+				<setting name="batch_subscription" value="true"/>-
+				<setting name="Binance_Ticker_Use_Realtime" value="true"/>
+				<!--
+				For BinanceStreaming (and other KNOWN-based streaming providers)
+				batch_subscription must be always true
+				-->
+			</adapter-settings>
+
+			<credentials>
+				<credential name="username" value=""/>-->
+				<credential name="password" value=""/>-->
+				<credential name="apiKey" value=""/>-->
+				<credential name="secretKey" value=""/>-->
+			</credentials>
+
+			<feeds>
+				<feedGroup id="1">
+					<feed type="marketData" marketDataType="trades" name="BinanceStreamingPipeline" instrument="1000" marketDepth="FULL_MARKET_DEPTH"
+						  save="false"/>
+				</feedGroup>
+				<feedGroup id="6">
+					<feed type="marketData" marketDataType="trades" name="BinanceStreamingPipeline-6" instrument="1000" marketDepth="FULL_MARKET_DEPTH"
+						  save="false"/>
+				</feedGroup>
+				<feedGroup id="2">
+					<feed type="execution" executionType="execution_report" name="BinanceStreamingPipeline-2" instrument="1" marketDepth="FULL_MARKET_DEPTH"
+						  save="false"/>
+				</feedGroup>
+				<feedGroup id="3">
+					<feed type="marketData" marketDataType="top_of_book" name="BinanceStreamingPipeline-3" instrument="2" marketDepth="FULL_MARKET_DEPTH"
+						  save="false"/>
+				</feedGroup>
+			</feeds>
+		</marketConnection>
+	</marketConnections>
+	<marketDataPipelines>
+		<marketDataPipeline name="default" threadModel="none" pipeline-builder ="com.quantfabric.algo.market.provider.aggregator.AggregatingMarketDataPipelineBuilder">
+			<services>
+<!--				<gatewayAgentsProvider name="gatewayAgentsProvider">-->
+<!--					<agent name="default" factory-class="remote.access.gateway.market.algo.com.quantfabric.DefaultGatewayAgentFactory">-->
+<!--						<settings>-->
+<!--							<setting name="host" value="localhost" />-->
+<!--							<setting name="serviceName" value="MarketDataService-1" />-->
+<!--						</settings>-->
+<!--					</agent>-->
+<!--				</gatewayAgentsProvider>-->
+			</services>
+			<marketViewAggregators>
+				<aggregator type="OrderBook">
+					<settings>
+						<setting name="isProductProducer" value="false"/>
+						<setting name="publishersManager" value="pub-manager-1"/>
+						<setting name="productCode" value="%FEED_NAME%"/>
+						<setting name="contentTypes" value="FULL_BOOK"/>
+					</settings>
+				</aggregator>
+				<aggregator type="MDPrice">
+					<setting name="isProductProducer" value="false"/>
+					<setting name="publishersManager" value="pub-manager-1"/>
+					<setting name="productCode" value="%FEED_NAME%"/>
+					<setting name="contentTypes" value="FULL_BOOK"/>
+				</aggregator>
+			</marketViewAggregators>
+			<marketDataFeeds>
+				<feed name="BinanceStreamingPipeline" connection="BinanceStreamingFeed"/>
+<!--				<feed name="<name>" connection="<connection_name>" />-->
+			</marketDataFeeds>
+		</marketDataPipeline>
+	</marketDataPipelines>
+	
+</marketgateway-configuration>

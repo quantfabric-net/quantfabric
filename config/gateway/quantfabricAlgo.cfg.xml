@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xcellerate-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.quantfabric.net/schema/quantfabric">
+	<quantfabric-services>
+		<quantfabric-service name="marketGateway" alias="MARKET"
+			class-name="com.quantfabric.algo.market.gateway.MarketGatewayService">
+			<init-arg name="configUrl" value="%CONFIG_ROOT%/quantfabric.gateway.cfg.xml" />
+		</quantfabric-service>
+	</quantfabric-services>
+</xcellerate-configuration>
+
+<!-- 
+	 ATTENTION!!! 
+	 Use JVM argument for specifing %CONFIG_ROOT% variable.
+	 
+	 (Run -> Run Configurations / Arguments / VM arguments) 	 
+	 -Dcom.quantfabric.algo.server.config_root=relative_path_config_folder_root
+	 
+	 Default value of %CONFIG_ROOT% variable is "config"
+-->

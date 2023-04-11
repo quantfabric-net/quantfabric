@@ -1,0 +1,1 @@
+docker run quantfabric -v config:/home/quantfabric/

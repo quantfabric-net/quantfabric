@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="Threshold" value="debug"/>
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ABSOLUTE} [%t] %-5p %c{1} - %m%n"/>
+        </layout>
+    </appender>
+    <appender name="rolling-file" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="logs/quantfabric/quantfabricAlgo.log"/>
+        <param name="MaxFileSize" value="10240KB"/>
+        <param name="MaxBackupIndex" value="4"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %l - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="cep-file" class="org.apache.log4j.FileAppender">
+        <param name="file" value="logs/quantfabric/cep.log"/>
+        <param name="append" value="false"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %l - %m%n"/>
+        </layout>
+    </appender>
+    
+    <appender name="json_rolling_appender" class="org.apache.log4j.RollingFileAppender">
+        <param name="file" value="logs/quantfabric/xchange_bitcoin.log"/>
+        <param name="MaxFileSize" value="10240KB"/>
+        <param name="MaxBackupIndex" value="4"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d [%t] %-5p %l -%m%n"/>
+        </layout>
+    </appender>
+       
+   	<logger name="com.quantfabric.cep" additivity="true">
+        <level value="error" />
+        <appender-ref ref="cep-file" />
+    </logger>
+   
+    <logger name="com.espertech.esper">
+        <level value="error" />
+    </logger>
+	
+	<logger name="quickfix">
+        <level value="INFO" />
+    </logger>
+    
+	 <logger name="com.quantfabric">
+        <level value="DEBUG" />
+    </logger>
+
+	
+	<logger name="com.quantfabric.algo.cep.indicators">
+    	<level value="WARN" />
+    </logger>
+        
+     <logger name="com.quantfabric.net.rpc">
+    	<level value="INFO" />
+    </logger> 
+	
+    <logger name="org.apache.activemq">
+        <level value="INFO" />
+    </logger>
+    
+    <logger name="org.springframework.jms.core.JmsTemplate">
+    	<level value="WARN" />
+    </logger>     
+    
+    <logger name="si.mazi.rescu">
+    	<level value="TRACE" />
+    	<appender-ref ref="json_rolling_appender" />
+    </logger>
+   
+   <root>
+        <appender-ref ref="console" />
+        <appender-ref ref="rolling-file" />
+    </root>
+</log4j:configuration>

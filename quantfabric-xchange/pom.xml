@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>quantfabric</artifactId>
+        <groupId>com.quantfabric.algo</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>quantfabric-xchange</artifactId>
+
+<!--    <properties>-->
+<!--        <maven.compiler.source>8</maven.compiler.source>-->
+<!--        <maven.compiler.target>8</maven.compiler.target>-->
+<!--    </properties>-->
+
+    <dependencies>
+        <dependency>
+            <groupId>com.quantfabric.algo</groupId>
+            <artifactId>quantfabric-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.quantfabric.algo</groupId>
+            <artifactId>quantfabric-marketgateway</artifactId>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.knowm.xchange/xchange-core -->
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-core</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.knowm.xchange/xchange-binance -->
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-binance</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-stream-core</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.knowm.xchange</groupId>
+            <artifactId>xchange-stream-binance</artifactId>
+            <version>${xchange.version}</version>
+        </dependency>
+
+    </dependencies>
+
+
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+	<algoServer name="AlgoServer" port="20001">
+		<setting name="proxyBufferSize" value="8192" />
+		<setting name="algoServerJMXhost" value="localhost" />
+		<setting name="algoServerJMXPort" value="20002" />
+
+		<algoHost name="AlgoHost" mainClassName="com.quantfabric.algo.server.AlgoHost"
+			pathToLoad="config/">
+			
+			<setting name="jvmMaxHeap" value="2048M" />
+			<setting name="jvmMaxPermSize" value="256M" />
+			
+		<setting name="remote-debug" value="true" />
+		<setting name="remote-debug-address" value="20003" />
+		<setting name="remote-debug-suspend" value="n" />
+		</algoHost>
+	</algoServer>
+</config>

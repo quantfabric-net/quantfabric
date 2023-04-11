@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<marketgateway-configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.quantfabric.net/schema/quantfabric">
+	
+	<esper-configuration>
+		<engine-settings>
+			<defaults>
+				<metrics-reporting enabled="false"
+					engine-interval="1000" statement-interval="30000" threading="true" />
+				<execution prioritized="false" />
+			</defaults>
+		</engine-settings>
+		
+	</esper-configuration>
+	<default-persister-settings>
+	</default-persister-settings>
+	<instruments>
+	
+    	 	<!-- Currency Pairs -->
+		<instrument id="1000" base="BTC" local="USD" pointsInOne="1000000" />
+		<instrument id="1"    base="BTC" local="USD"  pointsInOne="1000000" />
+		 
+	</instruments>
+	<marketConnections>
+<!--		EXAMPLE-->
+<!--		<marketConnection name="[connection_name]" mode="basic" autoConnect="false"-->
+<!--						  provider="[path_to_market_connection_provider]">-->
+
+<!--			<adapter-settings>-->
+<!--				<setting name="[name]" value="[value]" />-->
+<!--			</adapter-settings>-->
+
+<!--			<credentials>-->
+<!--				<credential name="[username]" value="[value]" />-->
+<!--			</credentials>-->
+
+<!--			<feeds>-->
+<!--				<feedGroup id="1">-->
+<!--					<feed type="[type]" name="[feed_name]" instrument="" marketDepth="[Depth" save="[true/false]" />-->
+<!--				</feedGroup>-->
+<!--			</feeds>-->
+
+<!--		</marketConnection>-->
+	</marketConnections>	
+
+	<publishers managerName="pub-manager-1" endpointAddress="127.0.0.1">		
+		<publisher type="zmq" productCode="B_BTCUSD" contentType="TOP_OF_BOOK" port="10011"/>	
+		<publisher type="zmq" productCode="B_BTCUSD" contentType="FULL_BOOK" port="10012"/>	
+		<publisher type="zmq" productCode="B_BTCUSD" contentType="INCREMENTAL_UPDATE" port="10013"/>
+		<publisher type="zmq" productCode="B_BTCUSD" contentType="OHLC" port="10014"/>
+		<publisher type="zmq" productCode="B_BTCUSD" contentType="COMPLEX_MARKET_VIEW" port="10015"/>
+		 	
+		<publisher type="zmq" productCode="BF_BTCUSD" contentType="TOP_OF_BOOK" port="10041"/>	
+		<publisher type="zmq" productCode="BF_BTCUSD" contentType="FULL_BOOK" port="10042"/>	
+		<publisher type="zmq" productCode="BF_BTCUSD" contentType="INCREMENTAL_UPDATE" port="10043"/>
+		<publisher type="zmq" productCode="BF_BTCUSD" contentType="OHLC" port="10044"/>
+		<publisher type="zmq" productCode="BF_BTCUSD" contentType="COMPLEX_MARKET_VIEW" port="10045"/>
+		
+		<publisher type="zmq" productCode="OK_BTCUSD" contentType="TOP_OF_BOOK" port="10046"/>	
+		<publisher type="zmq" productCode="OK_BTCUSD" contentType="FULL_BOOK" port="10047"/>	
+		<publisher type="zmq" productCode="OK_BTCUSD" contentType="INCREMENTAL_UPDATE" port="10048"/>
+		<publisher type="zmq" productCode="OK_BTCUSD" contentType="OHLC" port="10049"/>
+		<publisher type="zmq" productCode="OK_BTCUSD" contentType="COMPLEX_MARKET_VIEW" port="10050"/>
+		  	
+	</publishers>
+	<feedHandlers>
+		<feedHandler type="IncrementalUpdatesProducer" connection="BitstampFeed" feedName="B_BTCUSD">
+			<settings>
+				<setting name="publishersManager" value="pub-manager-1" />
+				<setting name="productCode" value="B_BTCUSD" />
+				<setting name="contentTypes" value="INCREMENTAL_UPDATE" />
+			</settings>
+		</feedHandler> 
+
+		<feedHandler type="IncrementalUpdatesProducer" connection="BitfinexFeed" feedName="BF_BTCUSD">
+			<settings>
+				<setting name="publishersManager" value="pub-manager-1" />
+				<setting name="productCode" value="BF_BTCUSD" />
+				<setting name="contentTypes" value="INCREMENTAL_UPDATE" />
+			</settings>
+		</feedHandler>
+
+		<feedHandler type="IncrementalUpdatesProducer" connection="OKCoinFeed" feedName="OK_BTCUSD">
+			<settings>
+				<setting name="publishersManager" value="pub-manager-1" />
+				<setting name="productCode" value="OK_BTCUSD" />
+				<setting name="contentTypes" value="INCREMENTAL_UPDATE" />
+			</settings>
+		</feedHandler>
+	</feedHandlers>
+	
+	<mdServiceHosts>
+		<host name="MD-ServiceHost-1" factory-class-name="com.quantfabric.algo.market.gateway.access.rmi.RmiMarketDataServiceHostFactory">
+			<host-settings>
+				<setting name="rmiServiceName" value="MarketDataService-1"/>
+				<setting name="rmiServicePort" value="6001"/>
+			</host-settings>
+			
+			<products>	
+				<product productCode="B_BTCUSD" instrument="1000">
+					<publishers>					
+						<publisher contentType="TOP_OF_BOOK" managerName="pub-manager-1"/>	
+						<publisher contentType="FULL_BOOK" managerName="pub-manager-1"/>
+						<publisher contentType="INCREMENTAL_UPDATE" managerName="pub-manager-1" />
+						<publisher contentType="OHLC" managerName="pub-manager-1" />
+						<publisher contentType="COMPLEX_MARKET_VIEW" managerName="pub-manager-1" />
+					</publishers>
+				</product> 
+				<product productCode="BF_BTCUSD" instrument="1000">
+					<publishers>					
+						<publisher contentType="TOP_OF_BOOK" managerName="pub-manager-1"/>	
+						<publisher contentType="FULL_BOOK" managerName="pub-manager-1"/>
+						<publisher contentType="INCREMENTAL_UPDATE" managerName="pub-manager-1" />
+						<publisher contentType="OHLC" managerName="pub-manager-1" />
+						<publisher contentType="COMPLEX_MARKET_VIEW" managerName="pub-manager-1" />
+					</publishers>
+				</product>
+				<product productCode="OK_BTCUSD" instrument="1">
+					<publishers>					
+						<publisher contentType="TOP_OF_BOOK" managerName="pub-manager-1"/>	
+						<publisher contentType="FULL_BOOK" managerName="pub-manager-1"/>
+						<publisher contentType="INCREMENTAL_UPDATE" managerName="pub-manager-1" />
+						<publisher contentType="OHLC" managerName="pub-manager-1" />
+						<publisher contentType="COMPLEX_MARKET_VIEW" managerName="pub-manager-1" />
+					</publishers>
+				</product>
+			</products>
+		</host> 
+	</mdServiceHosts>
+	
+	<marketDataPipelines>
+		<marketDataPipeline name="default" threadModel="none" 
+				pipeline-builder ="aggregator.provider.market.algo.com.quantfabric.AggregatingMarketDataPipelineBuilder">
+			<services>		
+			</services>
+			<marketDataFeeds>
+				<common-marketViewAggregators>
+					<aggregator type="TopMDQuote">
+						<settings>
+							<setting name="isProductProducer" value="true"/>
+							<setting name="publishersManager" value="pub-manager-1"/>
+							<setting name="productCode" value="%FEED_NAME%"/>
+							<setting name="contentTypes" value="TOP_OF_BOOK"/>
+						</settings>
+					</aggregator>
+					
+					<aggregator type="ComplexMarketView">
+						<settings>
+							<setting name="depth" value="2" />
+							<setting name="synchronousOutput" value="%FEED_NAME%-syncout-1" />
+							<setting name="isProductProducer" value="true"/>
+							<setting name="publishersManager" value="pub-manager-1"/>
+							<setting name="productCode" value="%FEED_NAME%"/>
+							<setting name="contentTypes" value="COMPLEX_MARKET_VIEW"/>
+						</settings>
+					</aggregator>
+					
+					<aggregator type="ComplexMarketView">
+						<settings>
+							<setting name="depth" value="4" />
+							<setting name="synchronousOutput" value="%FEED_NAME%-syncout-1" />
+							<setting name="isProductProducer" value="true"/>
+							<setting name="publishersManager" value="pub-manager-1"/>
+							<setting name="productCode" value="%FEED_NAME%"/>
+							<setting name="contentTypes" value="COMPLEX_MARKET_VIEW"/>
+						</settings>
+					</aggregator>
+					
+					<aggregator type="ComplexMarketView">
+						<settings>
+							<setting name="depth" value="6" />
+							<setting name="synchronousOutput" value="%FEED_NAME%-syncout-1" />
+							<setting name="isProductProducer" value="true"/>
+							<setting name="publishersManager" value="pub-manager-1"/>
+							<setting name="productCode" value="%FEED_NAME%"/>
+							<setting name="contentTypes" value="COMPLEX_MARKET_VIEW"/>
+						</settings>
+					</aggregator>
+					
+					
+					<aggregator type="OrderBook">
+						<settings>
+							<setting name="depth" value="6" />
+							<setting name="isProductProducer" value="true"/>
+							<setting name="publishersManager" value="pub-manager-1"/>
+							<setting name="productCode" value="%FEED_NAME%"/>
+							<setting name="contentTypes" value="FULL_BOOK"/>
+						</settings>
+					</aggregator>
+													
+				</common-marketViewAggregators>	
+				
+
+<!--				<feed name="[name]" connection="[connection_name]" /> -->
+
+			</marketDataFeeds>
+		</marketDataPipeline>
+	</marketDataPipelines>
+	
+</marketgateway-configuration>

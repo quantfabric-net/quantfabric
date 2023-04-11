@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<strategy_runner_configuration
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.quantfabric.net/schema/quantfabric">
+<!--TODO: add example-->
+	<default-persister-settings>	
+	</default-persister-settings>
+	
+	<global_settings>
+	</global_settings>
+
+	<trading_strategies>
+	</trading_strategies>
+
+</strategy_runner_configuration>
