@@ -10,12 +10,16 @@
 				<execution prioritized="false" />
 			</defaults>
 		</engine-settings>
-		
 	</esper-configuration>
 	<default-persister-settings>
 	</default-persister-settings>
 	<instruments>	
-    	 	<!-- Currency Pairs -->
+		<!-- Currency Pairs
+		id - any unique number
+		Ex. BTC/USDT: base=BTC, local="USDT"
+		pointsInOne - indicator of accuracy, the values received from the exchange will be multiplied by this value
+		to get rid of the numbers after the decimal point
+		-->
 		<instrument id="1000" base="BTC" local="USDT" pointsInOne="100000" />
 		<instrument id="1"    base="BTC" local="USDT" pointsInOne="100000" />
 		<instrument id="2"    base="BTC" local="USDT" pointsInOne="100000" />
@@ -50,16 +54,25 @@
 
 			<adapter-settings>
 				<setting name="subscribeType" value="pushing"/>
+				<!-- Possible value for postfix: COM/US  -->
 				<setting name="postfix" value="COM"/>
+				<!--
+				With 'true', provider will use url "wss://testnet.binance.vision/"
+				 instead of "wss://stream.binance.us:9443/";
+				 -->
 				<setting name="Use_Sandbox" value="true"/>
-				<setting name="batch_subscription" value="true"/>-
-				<setting name="Binance_Ticker_Use_Realtime" value="true"/>
 				<!--
 				For BinanceStreaming (and other KNOWN-based streaming providers)
-				batch_subscription must be always true
+				batch_subscription must be always true. KNOWN allow only one subscription request
+				per instance. When using 'batch_subscription=true', the provider will accumulate all feeds
+				provided in the feeds sections and will make one subscription request.
 				-->
+				<setting name="batch_subscription" value="true"/>-
+				<!-- 'true' allows to set marketDataType="top_of_book" in feeds group -->
+				<setting name="Binance_Ticker_Use_Realtime" value="true"/>
 			</adapter-settings>
 
+			<!-- Fill your credential here before running project -->
 			<credentials>
 				<credential name="username" value=""/>-->
 				<credential name="password" value=""/>-->
@@ -67,8 +80,17 @@
 				<credential name="secretKey" value=""/>-->
 			</credentials>
 
+			<!-- List of feeds -->
 			<feeds>
 				<feedGroup id="1">
+					<!--
+					'type' have two options: 'marketData' and 'execution'
+					marketData supports follow marketDataType: 'trades', 'orderbook' and 'top_of_book'
+					execution supports follow executionType: "execution_report", "order_changes"
+					instrument - id of currency in instrument section
+					'marketDepth' and 'save' are not fully implemented for KNOWN-based provider,
+					it will always use 'default_market_depth' and 'false'
+					-->
 					<feed type="marketData" marketDataType="trades" name="BinanceStreamingPipeline" instrument="1000" marketDepth="FULL_MARKET_DEPTH"
 						  save="false"/>
 				</feedGroup>
@@ -116,10 +138,10 @@
 				</aggregator>
 			</marketViewAggregators>
 			<marketDataFeeds>
+				<!-- list of providers defined with <marketConnection> -->
 				<feed name="BinanceStreamingPipeline" connection="BinanceStreamingFeed"/>
-<!--				<feed name="<name>" connection="<connection_name>" />-->
+<!--				<feed name="<name>" connection="<marketConnection_name>" />-->
 			</marketDataFeeds>
 		</marketDataPipeline>
 	</marketDataPipelines>
-	
 </marketgateway-configuration>
