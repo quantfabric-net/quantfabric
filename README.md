@@ -1,7 +1,7 @@
 # quantfabric
 Welcome to our open source platform for quantitative trading different assets like crypto, FX, and other assets. Our platform is designed to help traders analyze market data, develop trading strategies, and automate trading using a variety of assets.
 
-##Features
+## Features
 Our platform offers the following features:
 
 - **Market data:** We provide real-time market data for different assets, including crypto, FX, and other assets.
