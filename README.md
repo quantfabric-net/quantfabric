@@ -1,14 +1,13 @@
 # quantfabric
-Welcome to our open source platform for quantitative trading different assets like crypto, FX, and other assets. Our platform is designed to help traders analyze market data, develop trading strategies, and automate trading using a variety of assets.
-
+Welcome to our open source platform for quantitative trading multiple asset classes, i.e. crypto, FX, and equity. The platform is designed to connect to multiple sources of market data, develop trading strategies and execute trades - all with lowest latency possible.
 ## Features
 Our platform offers the following features:
 
-- **Market data:** We provide real-time market data for different assets, including crypto, FX, and other assets.
-- **Data analysis tools:** Our platform offers a variety of data analysis tools to help traders analyze market data and develop trading strategies.
-- **Backtesting:** Traders can backtest their trading strategies using historical market data to see how they would have performed in the past.
-- **Automated trading:** Our platform supports automated trading using a variety of trading bots that can execute trades based on predefined trading strategies.
-- **Customization:** Traders can customize the platform to their specific needs by adding their own data sources, trading bots, and analysis tools.
+- **Market data:** Low-latency market data connectivity for different asset classes, including crypto, FX, and other.
+- **Analytics:** Pre-built statistical, ML and data engineering functions, including proprietary order book indicators.
+- **Backtesting:** Tick data replay for realistic strategy backtesting.
+- **Execution:** Full execution lifecycle management.
+- **Low-latency/high-throughput:** It is designed using low-latency Java techniques to ensure the lowest end-to-end latency and highest throughput possible.
 
 ## Installation
 
